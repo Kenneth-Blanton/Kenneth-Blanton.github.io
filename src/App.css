@@ -1,38 +1,163 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+:root {
+  --primary: #3692d9;
+  --secondary: #2b3452;
+}
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: "Poppins";
+  background: #282828;
+}
+* {
+  /* color: #fff; */
+  margin: 0;
+}
+p {
+  margin: 20px 0;
+}
+button {
+  border: 0;
+  padding: 8px;
+  border-radius: 4px;
+  color: white;
+  background: var(--primary);
+  cursor: pointer;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* navbar */
+header nav {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 16px;
+  justify-content: flex-end;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+header nav h1 {
+  margin-right: auto;
+  border-bottom: 4px solid var(--primary);
+  border-radius: 4px;
+  /* -webkit-text-stroke: 1px white; */
+}
+header nav a {
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 4px;
+}
+header nav a.active {
+  background: var(--primary);
+}
+
+header nav h1 a.active {
+  background: none;
+}
+
+header nav a:visited {
+  text-decoration: none;
+  color: white;
+}
+header nav i {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+iframe {
+  border-radius: 4px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* page content */
+main {
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+footer {
+  max-width: 1200px;
+  margin: 40px auto;
+  color: white;
+}
+
+footer a:visited {
+  color: white;
+}
+
+form input {
+  border: 1px solid #3692d9;
+  border-radius: 4px;
+  width: 100%;
+  height: 5em;
+  margin: 1em 0;
+}
+
+/* Home */
+.home {
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: white;
+}
+
+.home section {
+  border: 1px solid #3692d9;
+}
+
+/* Desktop Layout */
+
+.event-tab {
+  text-align: center;
+}
+
+.event-tab button {
+  border: 1px solid white;
+  margin-top: 1em;
+  width: 200px;
+}
+
+/* Calendar Styling */
+
+.react-calendar {
+  padding: 1em;
+  width: 100%;
+  background: none;
+  border: 1px solid var(--primary);
+}
+
+.react-calendar__navigation__arrow:enabled:focus,
+.react-calendar__navigation__label:enabled:focus {
+  border: 1px solid white;
+  background-color: var(--primary) !important;
+}
+
+.react-calendar__navigation__arrow:hover,
+.react-calendar__navigation__label:hover {
+  border: 1px solid white;
+  background: var(--primary) !important;
+}
+
+.react-calendar__tile {
+  height: 50px;
+}
+
+.react-calendar__tile--active {
+  background: var(--primary);
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  border: 1px solid white;
+  background-color: var(--primary);
+}
+
+.react-calendar__tile--now {
+  background: none;
+  border: 1px solid white !important;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: white;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: grey;
 }
