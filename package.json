@@ -24,7 +24,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "-b development -d build",
+    "deploy": "git add build && git commit -m 'Deploy to development branch' && git subtree push --prefix build origin development",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
