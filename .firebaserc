@@ -1,0 +1,11 @@
+{
+  "projects": {
+    "default": "optinote-11172"
+  },
+  "targets": {},
+  "etags": {
+    "optinote-11172": {
+      "extensionInstances": {}
+    }
+  }
+}

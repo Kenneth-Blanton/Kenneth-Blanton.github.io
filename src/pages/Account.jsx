@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
+import { Layout } from "antd";
 import { UserAuth } from "../data/AuthContext";
 import { useNavigate } from "react-router-dom";
+const { Header, Content, Footer, Sider } = Layout;
 
 const Account = () => {
   const { logOut, user } = UserAuth();
@@ -22,13 +24,16 @@ const Account = () => {
   }, [user]);
 
   return (
-    <div>
-      <h1>Account Page</h1>
-      <div>
+    <Layout>
+      <Header>
+        <span style={{ color: "red" }}>Account Page</span>
+      </Header>
+      <Content>
         <p>Welcome, {user?.displayName}</p>
-      </div>
-      <button onClick={handleSignOut}>Logout</button>
-    </div>
+        <button onClick={handleSignOut}>Logout</button>
+      </Content>
+      <Footer></Footer>
+    </Layout>
   );
 };
 
