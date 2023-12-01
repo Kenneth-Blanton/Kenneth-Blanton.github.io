@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import NoteCard from "../components/NoteCard";
 import { db } from "../data/firebase";
 import { UserAuth } from "../data/AuthContext";
-import { FileOutlined, BookOutlined } from "@ant-design/icons";
-import { Layout, Button, Col, Row, Empty, Dropdown } from "antd";
+import { FileOutlined, BookOutlined, LoadingOutlined } from "@ant-design/icons";
+import { Layout, Button, Col, Row, Empty, Dropdown, Spin } from "antd";
 import { NavLink, useNavigate } from "react-router-dom";
 import UserCheck from "../router/UserCheck";
 import { collection, query, where, getDocs } from "firebase/firestore";
@@ -11,7 +11,19 @@ const { Content, Footer } = Layout;
 
 const Home = () => {
   UserCheck();
-  const [notes, setNotes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [notes, setNotes] = useState(
+    <Spin
+      indicator={
+        <LoadingOutlined
+          style={{
+            fontSize: 24,
+          }}
+          spin
+        />
+      }
+    />
+  );
   const { googleSignIn, user, logOut } = UserAuth();
 
   useEffect(() => {
@@ -26,6 +38,7 @@ const Home = () => {
           id: doc.id,
           ...doc.data(),
         }));
+        setIsLoading(false);
         setNotes(newNotes);
       } else {
         console.log("No user is signed in.");
@@ -59,7 +72,18 @@ const Home = () => {
           padding: 90, // make sure to make this 30 on mobile
         }}
       >
-        {notes.length > 0 ? (
+        {isLoading ? (
+          <Spin
+            indicator={
+              <LoadingOutlined
+                style={{
+                  fontSize: 24,
+                }}
+                spin
+              />
+            }
+          />
+        ) : notes.length > 0 ? (
           <>
             <Row gutter={[96, 56]}>
               {notes.map((note, index) => (

@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+![Welcome To OptiNote!](src/images/324432A3-2398-42B6-8C17-135D5FE5055D_4_5005_c.jpeg)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Overview
 
-## Available Scripts
+OptiNote is a web application designed to help users organize notes, manage budgets, and journal their thoughts. The app allows users to create task folders for better organization and provides features such as budget tracking, journaling, and collaboration on public notes.
 
-In the project directory, you can run:
+## Useful Links
 
-### `npm start`
+Here are some useful links related to this project:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [Live Version](https://optinote.com/)
+- [My Portfolio](https://codebykenneth.dev/)
+- [I Code Live Here](https://www.twitch.tv/kennethbcoding)
+- [My YouTube](https://www.youtube.com/channel/UCsLrCycwbnAKLZBSAlNyyYQ)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Table of Contents
 
-### `npm test`
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Setup and Installation](#setup-and-installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `npm run build`
+- Task Management
+- Folder Organization
+- Budget Tracking
+- Journaling
+- Public/Private Tasks
+- Comments and Collaboration
+- Search and Filter
+- Notifications
+- User Profile
+- Mobile Responsiveness
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tech Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Frontend: [React](https://reactjs.org/)
+- Backend: [Firebase](https://firebase.google.com/)
+- Database: [Firestore](https://firebase.google.com/docs/firestore)
+- Styling: [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) & [Ant Design](https://ant.design/)
+- Other dependencies: [List dependencies here]
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Setup and Installation
 
-### `npm run eject`
+1. Clone the repository.
+2. Install dependencies: `npm install`
+3. Set up Firebase configuration.
+4. Run the app: `npm start`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Usage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Create an account or log in.
+2. Creating notes that can be turned into tasks with due dates.
+3. Organize notes into folders.
+4. Set budgets, add journal entries, and collaborate on notes.
+5. Explore features like search, filter, and notifications.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Contributing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you are interested in helping please refer to my portfolio to contact me! Thank you!

@@ -5,10 +5,10 @@ import {
   signOut,
   onAuthStateChanged,
   signInWithPopup,
-  getRedirectResult,
 } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { set } from "firebase/database";
 
 const AuthContext = createContext();
 
@@ -18,17 +18,14 @@ export const AuthContextProvider = ({ children }) => {
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
-    signInWithRedirect(auth, provider);
-  };
-
-  const logOut = () => {
-    signOut(auth);
-  };
-
-  useEffect(() => {
-    getRedirectResult(auth)
+    signInWithPopup(auth, provider)
       .then(async (result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // const token = result.credential.accessToken;
+        // The signed-in user info.
+
         const user = result.user;
+        // setUser(user);
         const userRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(userRef);
 
@@ -51,10 +48,32 @@ export const AuthContextProvider = ({ children }) => {
             lastActive: new Date(),
           });
         }
+        // ...
       })
       .catch((error) => {
-        console.log(error.message);
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
       });
+  };
+
+  const logOut = () => {
+    signOut(auth);
+  };
+
+  useEffect(() => {
+    // getRedirectResult(auth)
+    //   .then(async (result) => {
+
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.message);
+    //   });
 
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);

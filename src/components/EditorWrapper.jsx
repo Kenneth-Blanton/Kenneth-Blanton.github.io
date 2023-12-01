@@ -1,10 +1,11 @@
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
+import NestedList from "@editorjs/nested-list";
+import Checklist from "@editorjs/checklist";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../data/firebase.js";
-import { set } from "firebase/database";
 
 const EditorWrapper = ({ onEditorReady }) => {
   const location = useParams();
@@ -18,6 +19,17 @@ const EditorWrapper = ({ onEditorReady }) => {
           holder: "editorjs",
           tools: {
             header: Header,
+            list: {
+              class: NestedList,
+              inlineToolbar: true,
+              config: {
+                defaultStyle: "unordered",
+              },
+            },
+            checklist: {
+              class: Checklist,
+              inlineToolbar: true,
+            },
           },
           placeholder: "Let's get optimal! 🚀",
 
@@ -42,6 +54,17 @@ const EditorWrapper = ({ onEditorReady }) => {
           holder: "editorjs",
           tools: {
             header: Header,
+            list: {
+              class: NestedList,
+              inlineToolbar: true,
+              config: {
+                defaultStyle: "unordered",
+              },
+            },
+            checklist: {
+              class: Checklist,
+              inlineToolbar: true,
+            },
           },
           placeholder: "Let's get optimal! 🚀",
 

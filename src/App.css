@@ -85,6 +85,14 @@ button {
   align-items: center;
 }
 
+.main-header button {
+  margin: 0 1em;
+}
+
+.handleDeleteButton {
+  background: red;
+}
+
 .ant-layout {
   background: none;
 }
