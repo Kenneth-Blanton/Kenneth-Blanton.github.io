@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../data/firebase";
 import { Layout, Menu, Button, Col, Row, Drawer, Dropdown, Space } from "antd";
 import {
@@ -23,6 +24,7 @@ import {
 import { UserAuth } from "../data/AuthContext.js";
 import HeaderComponent from "../components/HeaderComponent.jsx";
 import { SidebarUserMenuDock } from "../components/sidebarUserMenuDock.jsx";
+import { set } from "firebase/database";
 const { Header, Content, Footer, Sider } = Layout;
 
 const MainLayout = () => {
@@ -158,7 +160,12 @@ const MainLayout = () => {
         >
           <Col span={8}>
             {user ? (
-              <img src={user.photoURL} alt="" height={50} width={50} />
+              <img
+                src={user ? user.photoURL : null}
+                alt="Profile Pic"
+                height={50}
+                width={50}
+              />
             ) : (
               <NavLink to="/" id="logo">
                 <span>
@@ -217,7 +224,12 @@ const MainLayout = () => {
         <Row className={"sidebarUserMenu"}>
           <Col span={8} style={{ textAlign: "center" }}>
             {user ? (
-              <img src={user.photoURL} alt="" height={50} width={50} />
+              <img
+                src={user ? user.photoURL : null}
+                alt="Profile Pic"
+                height={50}
+                width={50}
+              />
             ) : (
               <NavLink to="/" id="logo">
                 <span>

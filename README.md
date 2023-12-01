@@ -12,6 +12,7 @@ Here are some useful links related to this project:
 - [My Portfolio](https://codebykenneth.dev/)
 - [I Code Live Here](https://www.twitch.tv/kennethbcoding)
 - [My YouTube](https://www.youtube.com/channel/UCsLrCycwbnAKLZBSAlNyyYQ)
+- [Discord](https://discord.gg/xwuMw7nb)
 
 ## Table of Contents
 
@@ -20,7 +21,6 @@ Here are some useful links related to this project:
 - [Setup and Installation](#setup-and-installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -50,7 +50,17 @@ Here are some useful links related to this project:
 3. Set up Firebase configuration.
 4. Run the app: `npm start`
 
-For detailed instructions, see [Setup Guide](./setup-guide.md).
+## Usage
+
+1. Create an account or log in.
+2. Creating notes that can be turned into tasks with due dates.
+3. Organize notes into folders.
+4. Set budgets, add journal entries, and collaborate on notes.
+5. Explore features like search, filter, and notifications.
+
+## Contributing
+
+If you are interested in helping please refer to my portfolio to contact me! Thank you!
 
 ## Usage
 
@@ -62,10 +72,4 @@ For detailed instructions, see [Setup Guide](./setup-guide.md).
 
 ## Contributing
 
-Contributions are welcome! See [Contribution Guidelines](./contributing.md) for more information.
-
 If you are interested in helping please refer to my portfolio to contact me! Thank you!
-
-## License
-
-This project is licensed under the [MIT License](./license.md).
