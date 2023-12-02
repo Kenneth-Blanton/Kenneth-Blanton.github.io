@@ -12,11 +12,10 @@ import {
   PlusCircleOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  LeftOutlined,
   RightOutlined,
   AudioOutlined,
   SearchOutlined,
-  AppstoreOutlined,
+  LeftOutlined,
   MailOutlined,
   SettingOutlined,
   EllipsisOutlined,
@@ -220,7 +219,11 @@ const MainLayout = () => {
           >
             Code By Kenneth
           </NavLink>
+          <button onClick={onClose} style={{ position: "absolute", right: 0 }}>
+            <LeftOutlined />
+          </button>
         </Row>
+
         <Row className={"sidebarUserMenu"}>
           <Col span={8} style={{ textAlign: "center" }}>
             {user ? (
@@ -238,6 +241,7 @@ const MainLayout = () => {
               </NavLink>
             )}
           </Col>
+
           <Col span={8} style={{ textAlign: "center" }}>
             {user ? user.displayName : null}
           </Col>

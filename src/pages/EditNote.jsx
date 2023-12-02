@@ -29,20 +29,6 @@ function EditNote() {
     setEditorInstance(editor);
   };
 
-  const [hasSaved, setHasSaved] = useState(false);
-
-  useEffect(() => {
-    if (editorInstance) {
-      editorInstance.on("change", () => {
-        ((outputData) => {
-          console.log(outputData);
-        }).catch((error) => {
-          console.error("Saving failed: ", error);
-        });
-      });
-    }
-  }, [editorInstance]);
-
   const handleSave = () => {
     if (editorInstance) {
       editorInstance
@@ -138,7 +124,7 @@ function EditNote() {
           </p>
         </Modal>
       </Header>
-      <EditorWrapper onEditorReady={handleEditorReady} />
+      <EditorWrapper onEditorReady={handleEditorReady} user={user} />
     </Content>
   );
 }
