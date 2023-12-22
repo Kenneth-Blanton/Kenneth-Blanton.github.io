@@ -101,7 +101,7 @@ const MainLayout = () => {
 
   return (
     <Layout
-      style={{ minHeight: "100svh", maxWidth: "100%", overflow: "hidden" }}
+      style={{ minHeight: "100svh", maxWidth: "100%", overflowX: "hidden" }}
     >
       <Sider
         trigger={null}

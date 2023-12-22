@@ -3,76 +3,45 @@ import React, { useEffect, useState } from "react";
 import EditorWrapper from "../components/EditorWrapper";
 import { SaveOutlined, DeleteOutlined } from "@ant-design/icons";
 import UserCheck from "../router/UserCheck";
+import { getAuth } from "firebase/auth";
 import { UserAuth } from "../data/AuthContext.js";
-import {
-  collection,
-  deleteDoc,
-  updateDoc,
-  doc,
-  getDoc,
-} from "firebase/firestore";
+import { deleteDoc, updateDoc, doc, getDoc } from "firebase/firestore";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../data/firebase.js";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content } = Layout;
 
 function EditNote() {
   UserCheck();
   const { user } = UserAuth();
+  const auth = getAuth();
   const location = useParams();
   const navigate = useNavigate();
 
   const [editorInstance, setEditorInstance] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  async function checkUser() {
+    const docRef = doc(db, "notes", location.id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.data().hasAccess.includes(auth.currentUser.uid)) {
+      console.log("has access");
+    } else {
+      navigate("/");
+    }
+  }
+  checkUser();
+
   const handleEditorReady = (editor) => {
     setEditorInstance(editor);
   };
 
-  const handleSave = () => {
-    if (editorInstance) {
-      editorInstance
-        .save()
-        .then((outputData) => {
-          console.log(outputData);
-          const noteTitle = document.getElementById("noteTitle").value;
-          const dataWithNoteTitle = {
-            title: noteTitle,
-            blocks: outputData.blocks,
-          };
-          async function editNote() {
-            const docRef = doc(db, "notes", location.id);
-            await updateDoc(docRef, {
-              dueDate: null, // Set this to the actual due date
-              title: noteTitle,
-              book: null, // Set this to the actual book ID
-              backgroundImage: null, // Set this to the actual background image URL
-              data: dataWithNoteTitle.blocks,
-              isPrivate: false, // Set this to the actual privacy status
-              lastModified: new Date(),
-              lastModifiedBy: user.uid,
-              alertsOn: false, // Set this to the actual alerts status
-            });
-            const userDocRef = doc(db, "users", user.uid);
-            const userDocSnap = await getDoc(userDocRef);
-            const notesMade = userDocSnap.data().notesMade;
-            if (!notesMade.includes(docRef.id)) {
-              notesMade.push(docRef.id);
-              await updateDoc(doc(db, "users", user.uid), {
-                notesMade,
-              });
-            }
-          }
-          editNote();
-        })
-        .catch((error) => {
-          console.log("Saving failed: ", error);
-        });
-    }
-  };
-
   const showModal = () => {
     setIsModalOpen(true);
+  };
+
+  const goBack = () => {
+    navigate("/");
   };
 
   const handleDelete = () => {
@@ -100,12 +69,12 @@ function EditNote() {
   return (
     <Content style={{ padding: 0 }}>
       <Header className="main-header" editorinstance={editorInstance}>
-        <button onClick={handleSave}>
+        {/* <button onClick={handleSave}>
           Save Note <SaveOutlined />
-        </button>
-        {/* <button>
-          Save and Exit <SaveOutlined />
         </button> */}
+        <button onClick={goBack}>
+          Save and Exit <SaveOutlined />
+        </button>
         <button onClick={showModal} className="handleDeleteButton">
           Delete Note <DeleteOutlined />
         </button>
@@ -124,7 +93,7 @@ function EditNote() {
           </p>
         </Modal>
       </Header>
-      <EditorWrapper onEditorReady={handleEditorReady} user={user} />
+      <EditorWrapper onEditorReady={handleEditorReady} />
     </Content>
   );
 }

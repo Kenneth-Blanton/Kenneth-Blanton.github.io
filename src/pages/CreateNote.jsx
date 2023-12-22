@@ -1,7 +1,8 @@
 import { Layout } from "antd";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import EditorWrapper from "../components/EditorWrapper";
-import { SaveOutlined } from "@ant-design/icons";
+import { SaveOutlined, DeleteOutlined } from "@ant-design/icons";
 import UserCheck from "../router/UserCheck";
 import { UserAuth } from "../data/AuthContext.js";
 import { collection, addDoc, updateDoc, doc, getDoc } from "firebase/firestore";
@@ -12,14 +13,17 @@ const { Header, Content, Footer, Sider } = Layout;
 function CreateNote() {
   UserCheck();
   const { user } = UserAuth();
+  const navigate = useNavigate();
 
   const [editorInstance, setEditorInstance] = useState(null);
+  const [hasSaved, setHasSaved] = useState(false);
 
   const handleEditorReady = (editor) => {
     setEditorInstance(editor);
   };
 
   const handleSave = () => {
+    setHasSaved(true);
     if (editorInstance) {
       editorInstance
         .save()
@@ -53,6 +57,7 @@ function CreateNote() {
             });
           }
           createNote();
+          navigate("/");
         })
         .catch((error) => {
           console.log("Saving failed: ", error);
@@ -60,11 +65,18 @@ function CreateNote() {
     }
   };
 
+  const goBack = () => {
+    navigate("/");
+  };
+
   return (
     <Content style={{ padding: 0 }}>
       <Header className="main-header" editorinstance={editorInstance}>
-        <button onClick={handleSave}>
-          Save Note <SaveOutlined />
+        <button onClick={handleSave} disabled={hasSaved}>
+          Save Note and Exit <SaveOutlined />
+        </button>
+        <button onClick={goBack} style={{ background: "red" }}>
+          Discard Changes <DeleteOutlined />
         </button>
       </Header>
       <EditorWrapper onEditorReady={handleEditorReady} />

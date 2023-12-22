@@ -217,3 +217,31 @@ button {
 .codeByKenneth a:hover {
   color: var(--primary);
 }
+
+.completedTitle {
+  border-top: 1px solid #2b3452a3;
+  color: #2b3452a3;
+  font-size: 24px;
+  margin: 1em 0em 0em 2em;
+}
+
+.editor-cluster {
+  padding: 1em;
+  text-align: center;
+  width: 100%;
+  justify-content: space-around;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .ce-popover--opened {
+    position: absolute;
+    width: 100vw;
+    bottom: -100px;
+    margin-left: -12px;
+  }
+}
+
+.codex-editor__redactor {
+  position: relative;
+}
