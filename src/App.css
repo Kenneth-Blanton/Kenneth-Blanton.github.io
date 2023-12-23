@@ -89,6 +89,22 @@ button {
   margin: 0 1em;
 }
 
+.note-header {
+  background-color: #282828;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.note-header button {
+  margin: 0 1em;
+  white-space: nowrap;
+  /* width: 9em; */
+  /* width: fit-content; */
+}
+
 .handleDeleteButton {
   background: red;
 }
@@ -240,6 +256,19 @@ button {
     bottom: -100px;
     margin-left: -12px;
   }
+
+  .note-header {
+    justify-content: left;
+    padding: 0;
+  }
+}
+
+.completedVis {
+  display: none;
+}
+
+.completedPlaceholder {
+  color: "rgba(100,100,100,0.5)";
 }
 
 .codex-editor__redactor {

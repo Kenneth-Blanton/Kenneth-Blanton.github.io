@@ -201,7 +201,7 @@ const EditorWrapper = ({ onEditorReady }) => {
             const docRef = doc(db, "notes", location.id);
             const docSnap = await getDoc(docRef);
             const userId = auth.currentUser.uid;
-            console.log(userId);
+            // console.log(outputData.blocks);
 
             // This is where we return the checked items to their original checklist
             const outputCompletedBlock = outputData.blocks.find(
@@ -403,8 +403,6 @@ const EditorWrapper = ({ onEditorReady }) => {
                   };
                 }
 
-                console.log(completedChecklist);
-
                 // Filter out the completed checklist from outputData.blocks
                 let updatedOutputDataBlocks = outputData.blocks.filter(
                   (block) => block.id !== "completed"
@@ -415,9 +413,6 @@ const EditorWrapper = ({ onEditorReady }) => {
 
                 // Update outputData.blocks
                 outputData.blocks = updatedOutputDataBlocks;
-
-                console.log(userId);
-                console.log(outputData.blocks);
 
                 // Update the Firestore document
                 await updateDoc(docRef, {

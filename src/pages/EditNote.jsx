@@ -1,7 +1,13 @@
 import { Layout, Modal, Button } from "antd";
 import React, { useEffect, useState } from "react";
 import EditorWrapper from "../components/EditorWrapper";
-import { SaveOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  SaveOutlined,
+  DeleteOutlined,
+  EyeOutlined,
+  EyeInvisibleOutlined,
+  MoreOutlined,
+} from "@ant-design/icons";
 import UserCheck from "../router/UserCheck";
 import { getAuth } from "firebase/auth";
 import { UserAuth } from "../data/AuthContext.js";
@@ -20,12 +26,12 @@ function EditNote() {
 
   const [editorInstance, setEditorInstance] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [completedVisible, setCompletedVisible] = useState(true);
 
   async function checkUser() {
     const docRef = doc(db, "notes", location.id);
     const docSnap = await getDoc(docRef);
     if (docSnap.data().hasAccess.includes(auth.currentUser.uid)) {
-      console.log("has access");
     } else {
       navigate("/");
     }
@@ -42,6 +48,43 @@ function EditNote() {
 
   const goBack = () => {
     navigate("/");
+  };
+
+  // console.log(document.querySelector('div[data-id="completed"]'));
+  const completedElement = document.querySelector(
+    'div.ce-block[data-id="completed"]'
+  );
+
+  if (completedElement) {
+    const completedVisElements = document.querySelectorAll(".completedVis");
+    completedVisElements.forEach((element) => {
+      element.style.display = "block";
+    });
+    console.log(completedElement);
+    const nestedElement = completedElement.querySelector(".cdx-checklist");
+
+    if (nestedElement.children.length === 0) {
+      nestedElement.style.pointerEvents = "none";
+      nestedElement.style.opacity = "0.5";
+      nestedElement.innerHTML = `<span>No completed items</span>`;
+    } else {
+    }
+  } else if (completedElement === null) {
+    console.log(completedElement);
+  }
+
+  const showCompleted = () => {
+    const completedChecklist = document.querySelector(
+      'div[data-id="completed"]'
+    );
+
+    if (completedChecklist.style.display === "none") {
+      completedChecklist.style.display = "block";
+      setCompletedVisible(true);
+    } else {
+      completedChecklist.style.display = "none";
+      setCompletedVisible(false);
+    }
   };
 
   const handleDelete = () => {
@@ -68,15 +111,25 @@ function EditNote() {
 
   return (
     <Content style={{ padding: 0 }}>
-      <Header className="main-header" editorinstance={editorInstance}>
-        {/* <button onClick={handleSave}>
-          Save Note <SaveOutlined />
-        </button> */}
+      <Header className="note-header" editorinstance={editorInstance}>
         <button onClick={goBack}>
           Save and Exit <SaveOutlined />
         </button>
         <button onClick={showModal} className="handleDeleteButton">
           Delete Note <DeleteOutlined />
+        </button>
+        {completedVisible ? (
+          <button onClick={showCompleted} className="completedVis">
+            Hide Completed <EyeInvisibleOutlined />
+          </button>
+        ) : (
+          <button onClick={showCompleted} className="completedVis">
+            Show Completed <EyeOutlined />
+          </button>
+        )}
+
+        <button>
+          <MoreOutlined />
         </button>
         <Modal
           open={isModalOpen}
