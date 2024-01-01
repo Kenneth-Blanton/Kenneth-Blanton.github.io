@@ -86,7 +86,7 @@ const HeaderComponent = ({ collapsed, setCollapsed, setOpen, user }) => {
         <Col span={20}>
           <div>{content}</div>
         </Col>
-        <Col span={2}>
+        <Col span={2} style={{ marginLeft: -40 }}>
           {user ? (
             <Dropdown
               menu={{

@@ -47,14 +47,14 @@ export const SidebarUserMenuDock = () => {
     },
     {
       label: user ? (
-        <a href="#" onClick={handleLogOut} style={{ color: "red" }}>
+        <ul onClick={handleLogOut} style={{ color: "red" }}>
           Sign Out
-        </a>
+        </ul>
       ) : null,
       icon: user ? (
-        <a href="#" onClick={handleLogOut} style={{ color: "red" }}>
+        <ul href="#" onClick={handleLogOut} style={{ color: "red" }}>
           <LogoutOutlined />
-        </a>
+        </ul>
       ) : null,
       key: "2",
     },

@@ -26,6 +26,12 @@ button {
   cursor: pointer;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .home li:first {
   padding: 0 !important;
   background-color: #282828;
@@ -80,7 +86,7 @@ button {
 .main-header {
   background-color: #282828;
   text-align: center;
-  padding: 0 2em 0 1em;
+  padding: 0 0em 0 0em;
   border-bottom: 1px solid #000;
   align-items: center;
 }
@@ -273,4 +279,51 @@ button {
 
 .codex-editor__redactor {
   position: relative;
+}
+
+.ant-card {
+  background: hsla(206, 68%, 53%, 1);
+
+  background: radial-gradient(
+    circle,
+    hsla(206, 68%, 53%, 1) 0%,
+    hsla(226, 31%, 25%, 1) 100%
+  );
+
+  background: -moz-radial-gradient(
+    circle,
+    hsla(206, 68%, 53%, 1) 0%,
+    hsla(226, 31%, 25%, 1) 100%
+  );
+
+  background: -webkit-radial-gradient(
+    circle,
+    hsla(206, 68%, 53%, 1) 0%,
+    hsla(226, 31%, 25%, 1) 100%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#3692D9", endColorstr="#2B3452", GradientType=1 );
+
+  border: 1px solid #000;
+}
+
+.ant-card-body {
+  height: 95px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.antCardCoverPhoto {
+  aspect-ratio: 15.95 / 9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  text-align: center;
+  color: black;
+  border-radius: 8px 8px 0 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }

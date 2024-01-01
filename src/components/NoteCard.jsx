@@ -1,9 +1,46 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Col, Row, Modal } from "antd";
-import { ClockCircleOutlined, MoreOutlined } from "@ant-design/icons";
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { Col, Row, Modal, Avatar, Card } from "antd";
+import {
+  ClockCircleOutlined,
+  MoreOutlined,
+  EditOutlined,
+  EllipsisOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
+import { db } from "../data/firebase.js";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import UserCheck from "../router/UserCheck.jsx";
 
 const NoteCard = ({ note }) => {
+  const [lastModifiedBy, setLastModifiedBy] = useState(null);
+  const [title, setTitle] = useState(note.title);
+  const [description, setDescription] = useState(note.description);
+  const userId = UserCheck().uid;
+
+  useEffect(() => {
+    const antCardActionsElements =
+      document.querySelectorAll(".ant-card-actions");
+
+    antCardActionsElements.forEach((element) => {
+      element.style.backgroundColor = "#3692d9"; // replace with your desired CSS properties
+      element.style.borderTop = "1px solid #000"; // replace with your desired CSS properties
+    });
+
+    async function getLastModifiedBy() {
+      if (note.lastModifiedBy) {
+        const userRef = await doc(db, "users", note.lastModifiedBy);
+        const userSnap = await getDoc(userRef);
+        const username = userSnap.data().username;
+        setLastModifiedBy(username);
+      }
+    }
+
+    getLastModifiedBy();
+  }, []);
+
+  const { Meta } = Card;
+
   function getDueDate() {
     const currentDate = new Date();
     if (note.dueDate) {
@@ -17,123 +54,157 @@ const NoteCard = ({ note }) => {
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModal2Open, setIsModal2Open] = useState(false);
+
   const showModal = () => {
     setIsModalOpen(true);
   };
+
+  const showModal2 = () => {
+    setIsModal2Open(true);
+  };
+
   const handleOk = () => {
     setIsModalOpen(false);
+    setIsModal2Open(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+    setIsModal2Open(false);
+  };
+
+  const handleTitleChange = async (e) => {
+    if (!note.id) {
+      console.log("no location id");
+    } else {
+      await updateDoc(doc(db, "notes", note.id), {
+        title: e.target.value,
+        lastModified: new Date(),
+        lastModifiedBy: userId,
+      });
+      setTitle(e.target.value);
+    }
+  };
+
+  const editDescription = async (e) => {
+    await updateDoc(doc(db, "notes", note.id), {
+      description: e.target.value,
+    });
+    setDescription(e.target.value);
   };
 
   return (
-    <div
-      className="card"
+    <Card
       style={{
-        border: "1px solid black",
-        borderRadius: 5,
         width: "100%",
-        paddingTop: "56.25%",
-        position: "relative",
+        aspectRatio: "16/9",
       }}
-    >
-      <div
-        style={{
-          padding: 10,
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-        }}
-      >
+      cover={
         <NavLink
           to={`/n/${note.id}`}
           style={{
-            height: "100%",
-            display: "flex",
+            backgroundImage: `url(${note.backgroundImage})`,
+            border: "1px solid black",
           }}
+          className={"antCardCoverPhoto"}
         >
-          <span
-            className="card-title"
-            style={{
-              fontSize: 48,
-              fontWeight: 700,
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "auto",
-              backgroundColor: "rgba(100,100,100,.1)",
-              color: "black",
-            }}
-          >
-            {note.title || "Untitled"}
-          </span>
+          {note.backgroundImage ? null : (
+            // <img src={note.backgroundImage} style={{ height: "100%" }} />
+            <span className="antCardCoverPhoto">{note.title}</span>
+          )}
         </NavLink>
-        <div
+      }
+      actions={[
+        <EditOutlined key="edit" onClick={showModal} />,
+
+        <span>{null}</span>,
+        <EllipsisOutlined key="ellipsis" onClick={showModal2} />,
+      ]}
+    >
+      <Meta
+        style={{ textAlign: "center" }}
+        title={note.backgroundImage ? title : null}
+        description={description}
+      />
+      <Modal
+        title="Editing Note"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        style={{ padding: 32 }}
+      >
+        <label>
+          <b>Title</b>
+        </label>
+        <br />
+        <input
+          type="text"
+          placeholder={note.title}
           style={{
-            position: "absolute",
             padding: 10,
-            bottom: 0,
-            left: 0,
-            backgroundColor: "rgba(100,100,100,.1)",
-            width: "100%",
-            textAlign: "center",
+            fontSize: 20,
+            color: "rgba(100,100,100,.8)",
+          }}
+          onChange={handleTitleChange}
+          id="noteTitle"
+        ></input>
+
+        <label
+          style={{
+            display: "block",
+            margin: "2em auto 0",
           }}
         >
-          <Row
-            style={
-              {
-                // padding: "0 2em",
-              }
-            }
-          >
-            <Col span={8} style={{ textAlign: "left" }}>
-              <span>
-                {note.createdAt
-                  ? new Date(note.createdAt.seconds * 1000).toLocaleDateString(
-                      "en-US",
-                      { month: "short", day: "numeric", year: "numeric" }
-                    )
-                  : null}
-              </span>
-            </Col>
-            <Col span={8} style={{ fontSize: 20 }}>
-              {getDueDate() ? (
-                <span>
-                  {getDueDate()} <ClockCircleOutlined />
-                </span>
-              ) : null}
-            </Col>
-
-            <Col span={8} style={{ textAlign: "right", fontSize: 20 }}>
-              <span
-                onClick={showModal}
-                style={{
-                  border: "1px solid lightgrey",
-                  borderRadius: 4,
-                  padding: 2,
-                  cursor: "pointer",
-                  color: "lightgrey",
-                }}
-              >
-                <MoreOutlined />
-              </span>
-            </Col>
-            <Modal
-              title="Basic Modal"
-              open={isModalOpen}
-              onOk={handleOk}
-              onCancel={handleCancel}
-            >
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-              <p>Some contents...</p>
-            </Modal>
-          </Row>
-        </div>
-      </div>
-    </div>
+          <b>Description</b>
+        </label>
+        <textarea
+          type="text"
+          placeholder={note.description ? note.description : "Description"}
+          id="description"
+          onChange={editDescription}
+          style={{
+            width: "100%",
+            height: "100%",
+            resize: "none",
+            fontFamily: "inherit",
+            fontSize: "inherit",
+            padding: "0.5em",
+            margin: "0em auto 1em",
+          }}
+        />
+      </Modal>
+      <Modal
+        title={note.title}
+        open={isModal2Open}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>
+          <b>Note created</b>:{" "}
+          {note.createdAt
+            ? new Date(note.createdAt.seconds * 1000).toLocaleDateString(
+                "en-US",
+                { month: "short", day: "numeric", year: "numeric" }
+              )
+            : null}
+        </p>
+        <p>
+          <b>Last Modified</b>:{" "}
+          {note.lastModified
+            ? new Date(note.lastModified.seconds * 1000).toLocaleDateString(
+                "en-US",
+                { month: "short", day: "numeric", year: "numeric" }
+              )
+            : null}
+        </p>
+        <p>
+          <b>Last Modified By</b>:{" "}
+          {lastModifiedBy
+            ? lastModifiedBy
+            : "No one has modified this note yet"}
+        </p>
+      </Modal>
+    </Card>
   );
 };
 

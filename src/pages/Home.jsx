@@ -87,7 +87,16 @@ const Home = () => {
           <>
             <Row gutter={[96, 56]}>
               {notes.map((note, index) => (
-                <Col xs={24} lg={12} key={note.id}>
+                <Col
+                  xs={24}
+                  lg={12}
+                  key={note.id}
+                  style={{
+                    // border: "1px solid red",
+                    justifyContent: "center",
+                    display: "flex",
+                  }}
+                >
                   <NoteCard note={note} />
                 </Col>
               ))}

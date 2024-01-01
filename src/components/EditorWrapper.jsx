@@ -82,7 +82,7 @@ const EditorWrapper = ({ onEditorReady }) => {
                   }}
                   onChange={handleTitleChange}
                   id="noteTitle"
-                ></input>
+                />
                 <span
                   style={{ color: "rgba(100,100,100,.8)", display: "block" }}
                 >
@@ -175,7 +175,7 @@ const EditorWrapper = ({ onEditorReady }) => {
                 }}
                 onChange={handleTitleChange}
                 id="noteTitle"
-              ></input>
+              />
               <span style={{ color: "rgba(100,100,100,.8)", display: "block" }}>
                 {fireData && fireData.data().lastModified
                   ? "Last Modified " +
@@ -428,6 +428,7 @@ const EditorWrapper = ({ onEditorReady }) => {
 
             await updateDoc(docRef, {
               lastModified: new Date(),
+              lastModifiedBy: userId,
             });
           });
         },
