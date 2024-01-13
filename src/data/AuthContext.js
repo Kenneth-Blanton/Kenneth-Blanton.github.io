@@ -40,7 +40,9 @@ export const AuthContextProvider = ({ children }) => {
             notesMade: [],
             booksMade: [],
             friendList: [],
+            isPrivate: true,
             isMember: false,
+            requests: [],
             // Add other info you want to store
           });
         } else {

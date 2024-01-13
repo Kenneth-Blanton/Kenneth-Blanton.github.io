@@ -19,14 +19,6 @@ const NoteCard = ({ note }) => {
   const userId = UserCheck().uid;
 
   useEffect(() => {
-    const antCardActionsElements =
-      document.querySelectorAll(".ant-card-actions");
-
-    antCardActionsElements.forEach((element) => {
-      element.style.backgroundColor = "#3692d9"; // replace with your desired CSS properties
-      element.style.borderTop = "1px solid #000"; // replace with your desired CSS properties
-    });
-
     async function getLastModifiedBy() {
       if (note.lastModifiedBy) {
         const userRef = await doc(db, "users", note.lastModifiedBy);
@@ -37,6 +29,7 @@ const NoteCard = ({ note }) => {
     }
 
     getLastModifiedBy();
+    console.log(note.createdAt);
   }, []);
 
   const { Meta } = Card;

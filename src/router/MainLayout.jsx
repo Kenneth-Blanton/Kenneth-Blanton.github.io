@@ -3,6 +3,7 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../data/firebase";
 import { Layout, Menu, Button, Col, Row, Drawer, Dropdown, Space } from "antd";
+import { BooksViewContext } from "../data/BookViewContext.js";
 import {
   UploadOutlined,
   UserOutlined,
@@ -30,6 +31,7 @@ const MainLayout = () => {
   const { user } = UserAuth();
 
   const [collapsed, setCollapsed] = useState(false);
+  const [isBooksViewActive, setIsBooksViewActive] = useState(true);
 
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -250,19 +252,26 @@ const MainLayout = () => {
           </Col>
         </Row>
       </Drawer>
-      <Layout style={{ maxWidth: "100%" }}>
-        <main>
-          <HeaderComponent
-            collapsed={collapsed}
-            setCollapsed={setCollapsed}
-            open={open}
-            setOpen={setOpen}
-            user={user}
-            // title={title}
-          />
-          <Outlet />
-        </main>
-      </Layout>
+      <BooksViewContext.Provider
+        value={{ isBooksViewActive, setIsBooksViewActive }}
+      >
+        <Layout style={{ maxWidth: "100%" }}>
+          <main>
+            <HeaderComponent
+              collapsed={collapsed}
+              setCollapsed={setCollapsed}
+              open={open}
+              setOpen={setOpen}
+              user={user}
+              // isBooksViewActive={isBooksViewActive}
+              // setIsBooksViewActive={setIsBooksViewActive}
+            />
+            <Outlet
+            // isBooksViewActive={isBooksViewActive}
+            />
+          </main>
+        </Layout>
+      </BooksViewContext.Provider>
     </Layout>
   );
 };

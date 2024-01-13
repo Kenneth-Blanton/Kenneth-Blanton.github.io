@@ -68,6 +68,9 @@ const EditorWrapper = ({ onEditorReady }) => {
                   width: "100%",
                   justifyContent: "space-around",
                   display: "block",
+                  borderLeft: "1px solid black",
+                  borderRight: "1px solid black",
+                  backgroundColor: "lightgray",
                 }}
               >
                 <input
@@ -161,6 +164,9 @@ const EditorWrapper = ({ onEditorReady }) => {
                 width: "100%",
                 justifyContent: "space-around",
                 display: "block",
+                borderLeft: "1px solid black",
+                borderRight: "1px solid black",
+                backgroundColor: "lightgray",
               }}
             >
               <input
@@ -172,6 +178,9 @@ const EditorWrapper = ({ onEditorReady }) => {
                   textAlign: "center",
                   fontSize: 20,
                   color: "rgba(100,100,100,.8)",
+                  width: fireData
+                    ? `${fireData.data().title.length * 15}px`
+                    : "100%",
                 }}
                 onChange={handleTitleChange}
                 id="noteTitle"
@@ -457,13 +466,9 @@ const EditorWrapper = ({ onEditorReady }) => {
         style={{
           padding: "0 2%",
           margin: 0,
-          height: "100%",
           width: "800px",
           maxWidth: "100%",
           maxHeight: "calc(100vh - 148px)",
-          backgroundColor: "lightgray",
-          border: "1px solid black",
-          borderRadius: "5px",
         }}
       ></div>
     </div>

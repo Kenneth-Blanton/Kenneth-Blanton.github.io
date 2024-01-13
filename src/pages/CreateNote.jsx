@@ -43,7 +43,7 @@ function CreateNote() {
               backgroundImage: null, // Set this to the actual background image URL
               description: null, // Set this to the actual description
               data: dataWithNoteTitle.blocks,
-              isPrivate: false, // Set this to the actual privacy status
+              isPrivate: true, // Set this to the actual privacy status
               hasAccess: [user.uid], // Set this to the actual list of user IDs
               lastModified: new Date(),
               lastModifiedBy: user.uid,
